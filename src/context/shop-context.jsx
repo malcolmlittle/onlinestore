@@ -22,6 +22,20 @@ export const ShopContextProvider = (props) => {
 
     const [cartItems, setCartItems] = useState(getDefaultCart());
 
+    const getTotalCartAmount = () => {
+        let totalAmount = 0;
+        // loop thru every item in the cartItems object, see that the values are greater than zero
+        // if item is in the cart get the value and multiply by specific price of that product and add that to totalAmount
+        for (const item in cartItems) {
+            if (cartItems[item] > 0) {
+                let itemInfo = PRODUCTS.find((product) => product.id === Number(item));
+                totalAmount += cartItems[item] * itemInfo.price;
+            }
+        }
+
+        return totalAmount
+    };
+
     // we then may want to add to cart so we can alter the value of the itemIDs
     const addToCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
@@ -38,7 +52,7 @@ export const ShopContextProvider = (props) => {
     }
     
     // create a context value that contains everything that we may want to access
-    const contextValue = { cartItems, addToCart, removeFromCart, updateCartItemCount }
+    const contextValue = { cartItems, addToCart, removeFromCart, updateCartItemCount, getTotalCartAmount }
 
     // in App.js wrap our app in the shopContextProvider so that all components will have access to whatever value is passed
     return (

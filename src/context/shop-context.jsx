@@ -31,11 +31,14 @@ export const ShopContextProvider = (props) => {
     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     };
+
+    // function that allows us to manually change the actual value of a specific product count in the cart items
+    const updateCartItemCount = (newAmount, itemId) => {
+        setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
+    }
     
     // create a context value that contains everything that we may want to access
-    const contextValue = { cartItems, addToCart, removeFromCart }
-
-    console.log(cartItems)
+    const contextValue = { cartItems, addToCart, removeFromCart, updateCartItemCount }
 
     // in App.js wrap our app in the shopContextProvider so that all components will have access to whatever value is passed
     return (

@@ -24,6 +24,8 @@ export const Cart = () => {
                     // this means that this product is in the cart
                     if (cartItems[product.id] !== 0) {
                         return <CartItem data={product} />
+                    } else {
+                        return null;
                     }
                 })}
             </div>
